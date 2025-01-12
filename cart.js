@@ -1,4 +1,9 @@
 let count=0;
+let promoCodes = {
+    ostad10: 0.1,
+    ostad5: 0.05,
+  };
+  let appliedPromo = null;
 let addToCart=(id,price)=>{
     count+=1;
     updatePrice('price',price);
@@ -47,7 +52,34 @@ let updateTaxandCharge=()=>{
 let updateTotal=()=>{
     let grandTotal=
     getInputValue('price')+getInputValue('delivery-charge')+getInputValue('total-tax');
-    document.getElementById('total').innerText=grandTotal.toFixed(2);
+    discount = appliedPromo ? grandTotal * promoCodes[appliedPromo] : 0;
+    console.log(grandTotal);
+    document.getElementById('total').innerText=(grandTotal-discount).toFixed(2);
+    
+}
+
+let applyPromoCode=()=>{
+    let promoCodeInput=document.getElementById('promo-code').value.trim();
+    let  promoMessage=document.getElementById('promo-message');
+    if(promoCodes[promoCodeInput]){
+        if(appliedPromo===promoCodeInput){
+            promoMessage.textContent = "Promo code already applied.";
+          promoMessage.className = "error";
+          return;
+        }
+        appliedPromo=promoCodeInput;
+        
+  
+        promoMessage.textContent = `Promo code "${promoCodeInput}" applied successfully!`;
+        promoMessage.className = "success";
+       updateTotal();
+
+    }
+    else {
+        promoMessage.textContent = "Invalid promo code.";
+        promoMessage.className = "error";
+        return parseFloat(1);
+      }
 }
 
 let clearCart=()=>{

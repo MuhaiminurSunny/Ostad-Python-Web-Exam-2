@@ -41,12 +41,13 @@ function displayProducts(products){
     //         }
     //     }
     // })
-
+    
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', event => {
             let productId = parseInt(event.target.getAttribute('data-id'));
             let product = products.find(p => p.id === productId);
             console.log(product)
+            document.getElementById("apply-promo").addEventListener("click", applyPromoCode);
             addToCart(product.id, product.price);
         });
     });

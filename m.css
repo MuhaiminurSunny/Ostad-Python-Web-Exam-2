@@ -96,6 +96,17 @@ body {
     width: 70%;
 }
 
+#promo-message{
+    font-weight: bold;
+}
+
+#promo-message.success{
+    color:green;
+}
+#promo-message.error{
+    color:red;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     /* For tablets and smaller screens, reduce the number of product columns */
